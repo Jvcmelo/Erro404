@@ -12,20 +12,26 @@
                 height: 100%;
                 width:100% ;
             }
+         
             #map { height: 100%;width: 100%; }
          </style>
 </head>
 <body>
     <div id="map"></div>
     <script>
-        var map = L.map('map').setView([-23.4435546, -51.9159050], 50);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//CRIA MAPA E DEFINE POSICAO ESTATICA~
+let localizacaoDoUsuario = {
+ latitude: -23.4435546,
+ longitude: -51.9159050     
+};
+var map = L.map('map');
+atualizarLocalizacaoDoMapa();
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-L.marker([-23.43536514286338, -51.95943362122219]).addTo(map)
-    .bindPopup('NK Park Estacionamento')
-    .openPopup();
+
 var circle = L.circle([-23.435907, -51.959010], {
     color: 'red',
     fillColor: '#f03',
@@ -33,25 +39,52 @@ var circle = L.circle([-23.435907, -51.959010], {
     radius:48 
 }).addTo(map);
 circle.bindPopup("Area de risco eminente.");
+
 var circle = L.circle([-23.41996564308374, -51.92876062874745], {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
     radius: 48
 }).addTo(map);
+
 var circle = L.circle([-23.4346, -51.9554], {
     color: 'yellow',
     fillColor: 'yellow',
     fillOpacity: 0.4,
     radius: 48  
-}).addTo(map);      
+}).addTo(map);    
+
 var marker = L.marker([-23.420097448736033, -51.93181782988791]).addTo(map);
-L.marker([-23.41913264075144, -51.93206459310292]).addTo(map)
+
+// ADICIONA MARKER DO ESTACENTER E LINK PARA ROTA
+marker = L.marker([-23.41913264075144, -51.93206459310292])
+    .addTo(map)
     .bindPopup('Estacenter Park.')
     .openPopup()
 
+marker.on('click', function() {
+    window.open(`https://www.google.com/maps/dir/?api=1&origin=${localizacaoDoUsuario.latitude},${localizacaoDoUsuario.longitude}&destination=-23.41913264075144,-51.93206459310292`, '_blank'); // URL desejada
+});
+
+// FINALIZA CONFIGURACAO DO ESTACENTER
+
+
+// ADICIONA MARKER DO NK CENTER E LINK PARA ROTA
+marker = L.marker([-23.43536514286338, -51.95943362122219])
+    .addTo(map)
+    .bindPopup('Estacenter Park.')
+    .openPopup()
+
+marker.on('click', function() {
+    window.open(`https://www.google.com/maps/dir/?api=1&origin=${localizacaoDoUsuario.latitude},${localizacaoDoUsuario.longitude}&destination=-23.43536514286338,-51.95943362122219`, '_blank'); // URL desejada
+});
+
+// FINALIZA CONFIGURACAO DO NK CENTER
+
+
 circle.bindPopup("Area de risco eminente.").openPopup();
 marker.bindPopup("Estacionamento 3037.").openPopup();
+
 var popup = L.popup()
     .setLatLng([-23.4346, -51.9554])
     .setContent("Zona de urgencia.")
@@ -62,16 +95,27 @@ var popup = L.popup()
     fillOpacity: 0.4,
     radius: 48
 }).addTo(map);
+
 var popup = L.popup()
     .setLatLng([-23.424202306455218, -51.92624106879071])
     .setContent("Zona de urgencia.")
     .openOn(map);
     
 
+// MOVE MAPA PARA A LOCALIZACAO ATUAL DO USUARIO
 
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(geolocation) {
+        localizacaoDoUsuario = geolocation.coords;
+        atualizarLocalizacaoDoMapa();
+    }, console.error);
+} else {
+    alert("Geolocalização não é suportada por este navegador.");
+}
 
-
-
+function atualizarLocalizacaoDoMapa() {
+    map.setView([localizacaoDoUsuario.latitude, localizacaoDoUsuario.longitude], 50);
+}
 
     </script>
 
