@@ -24,7 +24,7 @@
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 L.marker([-23.43536514286338, -51.95943362122219]).addTo(map)
-    .bindPopup('Estacionamento Pago..')
+    .bindPopup('NK Park Estacionamento')
     .openPopup();
 var circle = L.circle([-23.435907, -51.959010], {
     color: 'red',
@@ -32,18 +32,41 @@ var circle = L.circle([-23.435907, -51.959010], {
     fillOpacity: 0.5,
     radius:48 
 }).addTo(map);
+circle.bindPopup("Area de risco eminente.");
 var circle = L.circle([-23.41996564308374, -51.92876062874745], {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
     radius: 48
 }).addTo(map);
+var circle = L.circle([-23.4346, -51.9554], {
+    color: 'yellow',
+    fillColor: 'yellow',
+    fillOpacity: 0.4,
+    radius: 48  
+}).addTo(map);      
 var marker = L.marker([-23.420097448736033, -51.93181782988791]).addTo(map);
+L.marker([-23.41913264075144, -51.93206459310292]).addTo(map)
+    .bindPopup('Estacenter Park.')
+    .openPopup()
 
-
-circle.bindPopup("Zona de Risco.").openPopup();
-marker.bindPopup("Estacionamento Pago.").openPopup();
-L.marker([-23.41913264075144, -51.93206459310292], {icon: greenIcon}).addTo(map).bindPopup("Estacionamento Pago.");
+circle.bindPopup("Area de risco eminente.").openPopup();
+marker.bindPopup("Estacionamento 3037.").openPopup();
+var popup = L.popup()
+    .setLatLng([-23.4346, -51.9554])
+    .setContent("Zona de urgencia.")
+    .openOn(map);
+    var circle = L.circle([-23.424202306455218, -51.92624106879071], {
+    color: 'yellow',
+    fillColor: 'yellow',
+    fillOpacity: 0.4,
+    radius: 48
+}).addTo(map);
+var popup = L.popup()
+    .setLatLng([-23.424202306455218, -51.92624106879071])
+    .setContent("Zona de urgencia.")
+    .openOn(map);
+    
 
 
 
