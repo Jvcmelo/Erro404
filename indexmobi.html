@@ -1,0 +1,170 @@
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/><!-- Make sure you put this AFTER Leaflet's CSS -->
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+         crossorigin=""></script>
+         <style>
+            body {
+                position:absolute;
+                height: 100%;
+                width:100% ;
+            }
+         
+            #map { height: 100%;width: 100%; }
+         </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+//CRIA MAPA E DEFINE POSICAO ESTATICA~
+let localizacaoDoUsuario = {
+ latitude: -23.4435546,
+ longitude: -51.9159050     
+};
+var map = L.map('map');
+atualizarLocalizacaoDoMapa();
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+var circle = L.circle([-23.435907, -51.959010], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius:48 
+}).addTo(map);
+circle.bindPopup("Area de risco eminente.");
+//CRIAR POP UP DE INFORMAÇOES RELEVANTES
+
+var circle = L.circle([-23.440401, -51.914648], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 50
+}).addTo(map);
+circle.bindPopup("Perigo Eminente");
+
+var circle = L.circle([-23.440652, -51.918502], {
+    color: 'yellow',
+    fillColor: 'yellow',
+    fillOpacity: 0.5,
+    radius: 35
+}).addTo(map);
+circle.bindPopup("Area com urgencia.");
+
+var circle = L.circle([-23.442295, -51.918836], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 20
+}).addTo(map);
+circle.bindPopup("Perigo Eminente.");
+
+var circle = L.circle([-23.444510, -51.916734], {
+    color: 'yellow',
+    fillColor: 'yellow',
+    fillOpacity: 0.5,
+    radius: 37
+}).addTo(map);
+circle.bindPopup("Area com urgencia.");
+
+
+var circle = L.circle([-23.41996564308374, -51.92876062874745], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 48
+}).addTo(map);
+circle.bindPopup("Perigo Eminente.");
+
+var circle = L.circle([-23.4346, -51.9554], {
+    color: 'yellow',
+    fillColor: 'yellow',
+    fillOpacity: 0.4,
+    radius: 48  
+}).addTo(map);
+circle.bindPopup("Area com urgencia.");    
+
+var marker = L.marker([-23.420097448736033, -51.93181782988791]).addTo(map);
+
+// ADICIONA MARKER ESTACIONAMENTO UNICESUMAR
+marker = L.marker([-23.441810, -51.917034])
+    .addTo(map)
+    .bindPopup('Estacionamento Bloco 4.')
+    .openPopup()
+    
+    marker.on('click', function() {
+    window.open(`https://www.google.com/maps/dir/?api=1&origin=${localizacaoDoUsuario.latitude},${localizacaoDoUsuario.longitude}&destination=--23.441810, -51.917034`, '_blank'); // URL desejada
+});
+
+
+// ADICIONA MARKER DO ESTACENTER E LINK PARA ROTA
+marker = L.marker([-23.41913264075144, -51.93206459310292])
+    .addTo(map)
+    .bindPopup('Estacenter Park.')
+    .openPopup()
+
+marker.on('click', function() {
+    window.open(`https://www.google.com/maps/dir/?api=1&origin=${localizacaoDoUsuario.latitude},${localizacaoDoUsuario.longitude}&destination=-23.41913264075144,-51.93206459310292`, '_blank'); // URL desejada
+});
+
+// FINALIZA CONFIGURACAO DO ESTACENTER
+
+
+// ADICIONA MARKER DO NK CENTER E LINK PARA ROTA
+marker = L.marker([-23.43536514286338, -51.95943362122219])
+    .addTo(map)
+    .bindPopup('Estacenter Park.')
+    .openPopup()
+
+marker.on('click', function() {
+    window.open(`https://www.google.com/maps/dir/?api=1&origin=${localizacaoDoUsuario.latitude},${localizacaoDoUsuario.longitude}&destination=-23.43536514286338,-51.95943362122219`, '_blank'); // URL desejada
+});
+
+// FINALIZA CONFIGURACAO DO NK CENTER
+
+
+circle.bindPopup("Area de risco eminente.").openPopup();
+marker.bindPopup("Estacionamento 3037.").openPopup();
+
+var popup = L.popup()
+    .setLatLng([-23.4346, -51.9554])
+    .setContent("Zona de urgencia.")
+    .openOn(map);
+    var circle = L.circle([-23.424202306455218, -51.92624106879071], {
+    color: 'yellow',
+    fillColor: 'yellow',
+    fillOpacity: 0.4,
+    radius: 48
+}).addTo(map);
+
+var popup = L.popup()
+    .setLatLng([-23.424202306455218, -51.92624106879071])
+    .setContent("Zona de urgencia.")
+    .openOn(map);
+    
+
+// MOVE MAPA PARA A LOCALIZACAO ATUAL DO USUARIO
+
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(geolocation) {
+        localizacaoDoUsuario = geolocation.coords;
+        atualizarLocalizacaoDoMapa();
+    }, console.error);
+} else {
+    alert("Geolocalização não é suportada por este navegador.");
+}
+
+function atualizarLocalizacaoDoMapa() {
+    map.setView([localizacaoDoUsuario.latitude, localizacaoDoUsuario.longitude], 50);
+}
+
+    </script>
+
+    </body>
+</html>
