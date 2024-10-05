@@ -39,6 +39,40 @@ var circle = L.circle([-23.435907, -51.959010], {
     radius:48 
 }).addTo(map);
 circle.bindPopup("Area de risco eminente.");
+//CRIAR POP UP DE INFORMAÇOES RELEVANTES
+
+var circle = L.circle([-23.440401, -51.914648], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 50
+}).addTo(map);
+circle.bindPopup("Perigo Eminente");
+
+var circle = L.circle([-23.440652, -51.918502], {
+    color: 'yellow',
+    fillColor: 'yellow',
+    fillOpacity: 0.5,
+    radius: 35
+}).addTo(map);
+circle.bindPopup("Area com urgencia.");
+
+var circle = L.circle([-23.442295, -51.918836], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 20
+}).addTo(map);
+circle.bindPopup("Perigo Eminente.");
+
+var circle = L.circle([-23.444510, -51.916734], {
+    color: 'yellow',
+    fillColor: 'yellow',
+    fillOpacity: 0.5,
+    radius: 37
+}).addTo(map);
+circle.bindPopup("Area com urgencia.");
+
 
 var circle = L.circle([-23.41996564308374, -51.92876062874745], {
     color: 'red',
@@ -46,15 +80,28 @@ var circle = L.circle([-23.41996564308374, -51.92876062874745], {
     fillOpacity: 0.5,
     radius: 48
 }).addTo(map);
+circle.bindPopup("Perigo Eminente.");
 
 var circle = L.circle([-23.4346, -51.9554], {
     color: 'yellow',
     fillColor: 'yellow',
     fillOpacity: 0.4,
     radius: 48  
-}).addTo(map);    
+}).addTo(map);
+circle.bindPopup("Area com urgencia.");    
 
 var marker = L.marker([-23.420097448736033, -51.93181782988791]).addTo(map);
+
+// ADICIONA MARKER ESTACIONAMENTO UNICESUMAR
+marker = L.marker([-23.441810, -51.917034])
+    .addTo(map)
+    .bindPopup('Estacionamento Bloco 4.')
+    .openPopup()
+    
+    marker.on('click', function() {
+    window.open(`https://www.google.com/maps/dir/?api=1&origin=${localizacaoDoUsuario.latitude},${localizacaoDoUsuario.longitude}&destination=--23.441810, -51.917034`, '_blank'); // URL desejada
+});
+
 
 // ADICIONA MARKER DO ESTACENTER E LINK PARA ROTA
 marker = L.marker([-23.41913264075144, -51.93206459310292])
